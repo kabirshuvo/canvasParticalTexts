@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
 
@@ -16,7 +15,10 @@ canvas {
 
 input {
     position: absolute;
-    width: 100%;
+    width: calc(100% -20px);
+    padding: 10px;
+    margin: 10px;
+    z-index: 100;
 }
 
 
