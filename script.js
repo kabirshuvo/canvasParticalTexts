@@ -25,6 +25,7 @@ window.addEventListener("load", function () {
   ctx.textBaseline = "middle";
 
   const maxTextWidth = canvas.width * 0.5;
+  const lineHeight = 120; //lineHeight should be the same of fontSize. 
 
   function wrapText(text) {
     let linesArray = [];
@@ -41,10 +42,13 @@ window.addEventListener("load", function () {
       }
       linesArray[lineCounter] = line;
     }
+    let textHeight = lineHeight * lineCounter; 
+    let textY = canvas.height / 2 - textHeight / 2;
     linesArray.forEach((el, index) => {
-      ctx.fillText(el, canvas.width / 2, canvas.height / 2 + index * 120);
+      ctx.fillText(el, canvas.width / 2, textY + (index * lineHeight));
     });
+    console.log(linesArray);
   }
 
-  wrapText("aaa bbb ccc");
+  wrapText("aaa bbb ccc abc bca cab");
 });
