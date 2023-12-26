@@ -19,7 +19,13 @@ window.addEventListener("load", function () {
   ctx.lineTo(canvas.width, canvas.height / 2);
   ctx.stroke();
 
-  ctx.fillStyle = "yellow";
+  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  gradient.addColorStop(0.3, 'red');
+  gradient.addColorStop(0.5, 'orange');
+  gradient.addColorStop(0.7, 'fuchsia');
+  gradient.addColorStop(1, 'red');
+
+  ctx.fillStyle = gradient;
   ctx.strokeStyle = "white";
   ctx.font = "120px Helvitica";
   ctx.textAlign = "center";
