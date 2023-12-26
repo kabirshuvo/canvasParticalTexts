@@ -57,10 +57,11 @@ window.addEventListener("load", function () {
       this.canvasHeight = canvasHeight;
       this.textX = this.canvasWidth / 2;
       this.textY = this.canvasHeight / 2;
-      this.fontSize = 100;
+      this.fontSize = 300;
       this.lineHeight = this.fontSize * 0.8;
       this.maxTextWidth = this.canvasWidth * 0.8;
       this.textInput = document.getElementById("textInput");
+      this.verticalOfset = -0;
 
       this.textInput.addEventListener("keyup", (e) => {
         if (e.key !== " ") {
@@ -70,7 +71,7 @@ window.addEventListener("load", function () {
       });
       //particle text
       this.particles = [];
-      this.gap = 3;
+      this.gap = 2;
       this.mouse = {
         radius: 20000,
         x: 0,
@@ -90,14 +91,15 @@ window.addEventListener("load", function () {
         this.canvasHeight
       );
       gradient.addColorStop(0.3, "red");
-      gradient.addColorStop(0.5, "orange");
-      gradient.addColorStop(0.7, "fuchsia");
+      gradient.addColorStop(0.5, "red");
+      gradient.addColorStop(0.7, "orange");
       gradient.addColorStop(0.8, "orange");
       this.context.fillStyle = gradient;
       this.context.textAlign = "center";
       this.context.textBaseline = "middle";
       this.context.lineWidth = 3;
-      this.context.strokeStyle = "red";
+      this.context.strokeStyle = "white";
+      this.context.letterSpacing = '5px'
       this.context.font = this.fontSize + "px Helvetica";
 
       //   break multiline text
@@ -117,7 +119,7 @@ window.addEventListener("load", function () {
         linesArray[lineCounter] = line;
       }
       let textHeight = this.lineHeight * lineCounter;
-      this.textY = this.canvasHeight / 2 - textHeight / 2;
+      this.textY = this.canvasHeight / 2 - textHeight / 2 + this.verticalOfset;
       linesArray.forEach((el, index) => {
         this.context.fillText(
           el,
@@ -165,7 +167,7 @@ window.addEventListener("load", function () {
   }
 
   const effect = new Effect(ctx, canvas.width, canvas.height);
-  effect.wrapText("Amraow Tech is the only one");
+  effect.wrapText("Amraow");
   effect.render();
 
   function animate() {
