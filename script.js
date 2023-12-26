@@ -39,9 +39,9 @@ window.addEventListener("load", function () {
     let words = text.split(" ");
     for (let i = 0; i < words.length; i++) {
       let testLine = line + words[i] + "";
-      console.log(ctx.measureText(testLine));
-      ctx.fillText(testLine, canvas.width / 2, canvas.height / 2);
+      console.log(ctx.measureText(testLine).width);
+      ctx.fillText(testLine, canvas.width / 2, canvas.height / 2 + i * 120);
     }
   }
-  wrapText("aaa");
+  wrapText("aaa bbb ccc");
 });

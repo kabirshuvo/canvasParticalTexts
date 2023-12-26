@@ -15,7 +15,7 @@ canvas {
 
 input {
     position: absolute;
-    width: calc(100% -20px);
+    width: calc(100% - 20px);
     padding: 10px;
     margin: 10px;
     z-index: 100;
