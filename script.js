@@ -18,19 +18,13 @@ window.addEventListener("load", function () {
   ctx.lineTo(canvas.width, canvas.height / 2);
   ctx.stroke();
 
-  // const text = 'Amraow :) ';
-  // const textX = canvas.width/2;
-  // const textY = canvas.height/2;
-
   ctx.fillStyle = "yellow";
   ctx.strokeStyle = "white";
-
   ctx.font = "120px Helvitica";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
-  // ctx.fillText(text, textX, textY);
-  // ctx.strokeText(text, textX, textY);
+  const maxTextWidth = canvas.width * 0.5;
 
   function wrapText(text) {
     let linesArray = [];
@@ -38,10 +32,19 @@ window.addEventListener("load", function () {
     let line = "";
     let words = text.split(" ");
     for (let i = 0; i < words.length; i++) {
-      let testLine = line + words[i] + "";
-      console.log(ctx.measureText(testLine).width);
-      ctx.fillText(testLine, canvas.width / 2, canvas.height / 2 + i * 120);
+      let testLine = line + words[i] + " ";
+      if (ctx.measureText(testLine).width > maxTextWidth) {
+        line = words[i] + " ";
+        lineCounter++;
+      } else {
+        line = testLine;
+      }
+      linesArray[lineCounter] = line;
     }
+    linesArray.forEach((el, index) => {
+      ctx.fillText(el, canvas.width / 2, canvas.height / 2 + index * 120);
+    });
   }
+
   wrapText("aaa bbb ccc");
 });
