@@ -1,9 +1,11 @@
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1");
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d", {
+    willReadFrequently: true,
+  });
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-//   console.log(ctx);
+  //   console.log(ctx);
 
   class Particle {
     constructor(effect, x, y, color) {
@@ -26,27 +28,24 @@ window.addEventListener("load", function () {
     }
     draw() {
       this.effect.context.fillStyle = this.color;
-      this.effect.context.fillRect(
-        this.x,
-        this.y,
-        this.size,
-        this.size
-      );
+      this.effect.context.fillRect(this.x, this.y, this.size, this.size);
     }
     update() {
-        this.dx = this.effect.mouse.x - this.x;
-        this.dy = this.effect.mouse.y - this.y;
-        this.distance = this.dx * this.dx + this.dy * this.dy;
-        this.force = -this.effect.mouse.radius / this.distance;
+      this.dx = this.effect.mouse.x - this.x;
+      this.dy = this.effect.mouse.y - this.y;
+      this.distance = this.dx * this.dx + this.dy * this.dy;
+      this.force = -this.effect.mouse.radius / this.distance;
 
-        if (this.distance < this.effect.mouse.radius){
-            this.angle = Math.atan2(this.dy, this.dx);
-            this.vx += this.force * Math.cos(this.angle);
-            this.vy += this.force * Math.sin(this.angle);
-        }
+      if (this.distance < this.effect.mouse.radius) {
+        this.angle = Math.atan2(this.dy, this.dx);
+        this.vx += this.force * Math.cos(this.angle);
+        this.vy += this.force * Math.sin(this.angle);
+      }
 
-      this.x += (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
-      this.y += (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
+      this.x +=
+        (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
+      this.y +=
+        (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
     }
   }
 
@@ -65,7 +64,7 @@ window.addEventListener("load", function () {
 
       this.textInput.addEventListener("keyup", (e) => {
         if (e.key !== " ") {
-            this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+          this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
           this.wrapText(e.target.value);
         }
       });
@@ -99,8 +98,8 @@ window.addEventListener("load", function () {
       this.context.textBaseline = "middle";
       this.context.lineWidth = 3;
       this.context.strokeStyle = "white";
-      this.context.letterSpacing = '1px'
-      this.context.font = this.fontSize + "px Helvetica";
+      this.context.letterSpacing = "1px";
+      this.context.font = this.fontSize + "px Bangers";
 
       //   break multiline text
 
@@ -156,13 +155,21 @@ window.addEventListener("load", function () {
           }
         }
       }
-    //   console.log(this.particles);
+      //   console.log(this.particles);
     }
     render() {
       this.particles.forEach((particle) => {
         particle.update();
         particle.draw();
       });
+    }
+    resize(width, height){
+        this.canvasWidth = width;
+        this.canvasHeight = height;
+        this.textX = this.canvasWidth;
+        this.textY = this.canvasHeight;
+        this.maxTextWidth = this.canvasWidth * 0.8;
+
     }
   }
 
@@ -176,4 +183,11 @@ window.addEventListener("load", function () {
     requestAnimationFrame(animate);
   }
   animate();
+
+  this.window.addEventListener("resize", function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    effect.resize(canvas.width, canvas.height);
+    effect.wrapText(effect.textInput.value);
+  });
 });
