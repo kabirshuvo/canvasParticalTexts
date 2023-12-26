@@ -1,4 +1,5 @@
 window.addEventListener("load", function () {
+    const textInput = document.getElementById('textInput')
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
@@ -50,5 +51,10 @@ window.addEventListener("load", function () {
     console.log(linesArray);
   }
 
-  wrapText("aaa bbb ccc abc bca cab");
+//  wrapText("aaa bbb ccc abc bca cab");
+ textInput.addEventListener('keyup', function(e){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    wrapText(e.target.value);
+    // console.log(e.target.value);
+ })
 });
