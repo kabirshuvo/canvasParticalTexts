@@ -3,7 +3,7 @@ window.addEventListener("load", function () {
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  console.log(ctx);
+//   console.log(ctx);
 
   class Particle {
     constructor(effect, x, y, color) {
@@ -57,15 +57,15 @@ window.addEventListener("load", function () {
       this.canvasHeight = canvasHeight;
       this.textX = this.canvasWidth / 2;
       this.textY = this.canvasHeight / 2;
-      this.fontSize = 300;
+      this.fontSize = 200;
       this.lineHeight = this.fontSize * 0.8;
       this.maxTextWidth = this.canvasWidth * 0.8;
       this.textInput = document.getElementById("textInput");
-      this.verticalOfset = -0;
+      this.verticalOfset = 0;
 
       this.textInput.addEventListener("keyup", (e) => {
         if (e.key !== " ") {
-          this.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+            this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
           this.wrapText(e.target.value);
         }
       });
@@ -99,7 +99,7 @@ window.addEventListener("load", function () {
       this.context.textBaseline = "middle";
       this.context.lineWidth = 3;
       this.context.strokeStyle = "white";
-      this.context.letterSpacing = '5px'
+      this.context.letterSpacing = '1px'
       this.context.font = this.fontSize + "px Helvetica";
 
       //   break multiline text
@@ -156,7 +156,7 @@ window.addEventListener("load", function () {
           }
         }
       }
-      console.log(this.particles);
+    //   console.log(this.particles);
     }
     render() {
       this.particles.forEach((particle) => {
@@ -167,7 +167,7 @@ window.addEventListener("load", function () {
   }
 
   const effect = new Effect(ctx, canvas.width, canvas.height);
-  effect.wrapText("Amraow");
+  effect.wrapText(effect.textInput.value);
   effect.render();
 
   function animate() {
